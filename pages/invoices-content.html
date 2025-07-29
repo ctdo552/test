@@ -12,66 +12,95 @@
         </div>
     </div>-->
     
-   <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <!-- Ô tìm kiếm -->
-            <input type="text" placeholder="Tìm kiếm mã hóa đơn, khách hàng..." class=" w-4/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+<div class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-4">
+  <div class="space-y-4">
 
-            <!-- Tùy chọn + Trạng thái thanh toán trên cùng một hàng -->
-            <div class="flex w-4/5 gap-4">
-            <select class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Tùy chọn</option>
-                <option>Hôm nay</option>
-                <option>Tuần này</option>
-                <option>Tháng này</option>
-                <option>Tháng trước</option>
-                <option>3 tháng gần nhất</option>
-            </select>
-            <select class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Trạng thái TT</option>
-                <option>Chưa thanh toán</option>
-                <option>Đã thanh toán</option>
-            </select>
-            </div>
+    <!-- 1. Ô tìm kiếm -->
+    <input
+      type="text"
+      placeholder="Tìm kiếm mã hóa đơn, khách hàng..."
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
 
-            <!-- Từ ngày + Đến ngày trên cùng một hàng -->
-            <div class="flex w-4/5 gap-4 items-center">
-            <label class="flex-1">Từ ngày
-                <input type="date" class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </label>
-            <label class="flex-1">Đến ngày
-                <input type="date" class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            </label>
-            </div>
-
-            <!-- Phường/Xã + Khu phố trên cùng một hàng -->
-            <div class="flex w-4/5 gap-4">
-            <select class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Phường/Xã</option>
-                <option>Phường Sài Gòn</option>
-                <option>Phường Tân Định</option>
-                <option>Xã Đông Thạnh</option>
-            </select>
-            <select class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option>Khu phố</option>
-                <option>Khu phố 1</option>
-                <option>Khu phố 2</option>
-                <option>Khu phố 3</option>
-            </select>
-            </div>
-
-            <!-- Tên đường -->
-            <select class=" w-4/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option>Tên đường</option>
-            <option>Đường Cách mạng tháng 8</option>
-            <option>Đường Lý Thường Kiệt</option>
-            <option>Đường Phổ Quang</option>
-            </select>
-
-            <!-- Nút tìm kiếm -->
-            <button class="btn-search px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">Tìm kiếm</button>
-        </div>
+    <!-- 2. Tùy chọn + Trạng thái TT -->
+    <div class="flex gap-4">
+      <select
+        class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option>Tùy chọn</option>
+        <option>Hôm nay</option>
+        <option>Tuần này</option>
+        <option>Tháng này</option>
+        <option>Tháng trước</option>
+        <option>3 tháng gần nhất</option>
+      </select>
+      <select
+        class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option>Trạng thái TT</option>
+        <option>Chưa thanh toán</option>
+        <option>Đã thanh toán</option>
+      </select>
     </div>
+
+    <!-- 3. Từ ngày + Đến ngày -->
+    <div class="flex gap-4">
+      <label class="flex-1 min-w-0 flex flex-col">
+        <span>Từ ngày</span>
+        <input
+          type="date"
+          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </label>
+      <label class="flex-1 min-w-0 flex flex-col">
+        <span>Đến ngày</span>
+        <input
+          type="date"
+          class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </label>
+    </div>
+
+    <!-- 4. Phường/Xã + Khu phố -->
+    <div class="flex gap-4">
+      <select
+        class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option>Phường/Xã</option>
+        <option>Phường Sài Gòn</option>
+        <option>Phường Tân Định</option>
+        <option>Xã Đông Thạnh</option>
+      </select>
+      <select
+        class="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option>Khu phố</option>
+        <option>Khu phố 1</option>
+        <option>Khu phố 2</option>
+        <option>Khu phố 3</option>
+      </select>
+    </div>
+
+    <!-- 5. Tên đường -->
+    <select
+      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <option>Tên đường</option>
+      <option>Đường Cách mạng tháng 8</option>
+      <option>Đường Lý Thường Kiệt</option>
+      <option>Đường Phổ Quang</option>
+    </select>
+
+    <!-- 6. Nút tìm kiếm -->
+    <button
+      class="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+    >
+      Tìm kiếm
+    </button>
+
+  </div>
+</div>
+
 
 
     
