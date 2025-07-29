@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test WebAdmin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Test WebAdmin Content Loading</h1>
+        
+        <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
+            <h2 class="text-lg font-semibold mb-2">Test Navigation</h2>
+            <div class="space-x-2">
+                <button onclick="testLoadContent('customers-content')" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                    Load Customers
+                </button>
+                <button onclick="testLoadContent('contracts-content')" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                    Load Contracts
+                </button>
+                <button onclick="testLoadContent('dashboard-grac-admin')" class="bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+                    Load Dashboard
+                </button>
+            </div>
+        </div>
+        
+        <div id="content-container" class="bg-white p-4 rounded-lg shadow-sm min-h-64">
+            <p class="text-gray-500">Content will be loaded here...</p>
+        </div>
+    </div>
+
+    <script>
+        function testLoadContent(contentId) {
+            const contentContainer = document.getElementById('content-container');
+            
+            console.log('Testing load content:', contentId);
+            
+            // Show loading state
+            contentContainer.innerHTML = '<div class="flex items-center justify-center h-32"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>';
+            
+            // Load content
+            fetch(`pages/${contentId}.html`)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    console.log('Content loaded successfully');
+                    contentContainer.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    contentContainer.innerHTML = `
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 text-4xl mb-4"></i>
+                            <h2 class="text-xl font-semibold text-gray-700 mb-2">Lỗi tải trang</h2>
+                            <p class="text-gray-500 mb-4">Không thể tải trang: ${contentId}</p>
+                            <p class="text-sm text-gray-400">Lỗi: ${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+    </script>
+</body>
+</html> 

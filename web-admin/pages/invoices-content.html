@@ -1,0 +1,462 @@
+<div class="bg-white p-6 rounded-lg shadow-sm">
+    <!--
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Công nợ & Thanh toán</h2>
+        <div class="flex space-x-2">
+            <button class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 flex items-center">
+                <i class="fas fa-download mr-2"></i> Export
+            </button>
+            <button class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 flex items-center">
+                <i class="fas fa-plus mr-2"></i>Tạo hóa đơn
+            </button>
+        </div>
+    </div>-->
+    
+   <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Ô tìm kiếm -->
+            <input type="text" placeholder="Tìm kiếm mã hóa đơn, khách hàng..." class=" w-4/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            <!-- Tùy chọn + Trạng thái thanh toán trên cùng một hàng -->
+            <div class="flex w-4/5 gap-4">
+            <select class="flex-1 min-w-[140px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Tùy chọn</option>
+                <option>Hôm nay</option>
+                <option>Tuần này</option>
+                <option>Tháng này</option>
+                <option>Tháng trước</option>
+                <option>3 tháng gần nhất</option>
+            </select>
+            <select class="flex-1 min-w-[150px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Trạng thái TT</option>
+                <option>Chưa thanh toán</option>
+                <option>Đã thanh toán</option>
+            </select>
+            </div>
+
+            <!-- Từ ngày + Đến ngày trên cùng một hàng -->
+            <div class="flex w-4/5 gap-4 items-center">
+            <label class="flex-1">Từ ngày
+                <input type="date" class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </label>
+            <label class="flex-1">Đến ngày
+                <input type="date" class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </label>
+            </div>
+
+            <!-- Phường/Xã + Khu phố trên cùng một hàng -->
+            <div class="flex w-4/5 gap-4">
+            <select class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Phường/Xã</option>
+                <option>Phường Sài Gòn</option>
+                <option>Phường Tân Định</option>
+                <option>Xã Đông Thạnh</option>
+            </select>
+            <select class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Khu phố</option>
+                <option>Khu phố 1</option>
+                <option>Khu phố 2</option>
+                <option>Khu phố 3</option>
+            </select>
+            </div>
+
+            <!-- Tên đường -->
+            <select class=" w-4/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>Tên đường</option>
+            <option>Đường Cách mạng tháng 8</option>
+            <option>Đường Lý Thường Kiệt</option>
+            <option>Đường Phổ Quang</option>
+            </select>
+
+            <!-- Nút tìm kiếm -->
+            <button class="btn-search px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition">Tìm kiếm</button>
+        </div>
+    </div>
+
+
+    
+    <!--<div class="flex border-b border-gray-200 mb-4"><i class="fas fa-users mr-2">
+        <button class="status-tab status-warning active px-4 py-2 text-sm font-medium">
+            <span class="status-tag bg-yellow-100 text-yellow-800 mr-2">Chưa thanh toán</span>
+            <span class="text-gray-600">(5)</span>
+        </button>
+        <button class="status-tab status-success px-4 py-2 text-sm font-medium">
+            <span class="status-tag bg-green-100 text-green-800 mr-2">Đã thanh toán</span>
+            <span class="text-gray-600">(3)</span>
+        </button>
+        
+        <button class="status-tab status-inactive px-4 py-2 text-sm font-medium">
+            <span class="status-tag bg-red-100 text-red-800 mr-2">Quá hạn</span>
+            <span class="text-gray-600">(2)</span>
+        </button>
+    </div>-->
+    
+    <!-- Card view: chỉ hiện trên mobile (dưới md) -->
+<!--Bắt đầu-->
+<!-- Tab Buttons -->
+<div class="flex gap-2 mb-4">
+  <button class="tab-button px-4 py-2 border rounded active bg-red-200" data-tab="tab-chua-thanh-toan">Chưa thanh toán</button>
+  <button class="tab-button px-4 py-2 border rounded bg-green-200" data-tab="tab-da-thanh-toan">Đã thanh toán</button>
+</div>
+
+<!-- Tab Content -->
+<div id="tab-chua-thanh-toan" class="tab-content">
+  <!-- Nội dung tab 1 chưa thanh toán -->
+   <div class="space-y-4 md:hidden">
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD001</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Nguyễn Văn An</div>
+            <div class="text-gray-700 font-bold">35.000 ₫</div>
+            <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full " onclick="openPaymentModal('HD001', 'Nguyễn Văn An', 'T5/2025', '35.000 ₫')">Thanh toán</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD002</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Trần Thị Bích</div>
+            <div class="text-gray-700 font-bold">35.000 ₫</div>
+            <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Thanh toán</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD003</span>
+                <span class="status-tag bg-red-100 text-red-800 text-xs">Quá hạn</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Công ty TNHH ABC</div>
+            <div class="text-gray-500 text-sm">Kỳ thanh toán: T4/2025</div>
+            <div class="text-gray-500 text-sm">Hạn thanh toán: 15/04/2025</div>
+            <div class="text-gray-500 text-xs">
+                <div class="flex justify-between"><span>Thu gom:</span><span class="font-semibold text-green-600">200.000</span></div>
+                <div class="flex justify-between"><span>Vận chuyển:</span><span class="font-semibold text-blue-600">180.000</span></div>
+                <div class="flex justify-between"><span>Xử lý:</span><span class="font-semibold text-purple-600">120.000</span></div>
+            </div>
+            <div class="text-gray-700 font-bold">500.000 ₫</div>
+            <div class="flex gap-2 mt-2">
+                <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Thanh toán</button>
+                <button class="flex-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Nhắc nhở</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="tab-da-thanh-toan" class="tab-content hidden">
+  <!-- Nội dung tab 2 đã thanh toán -->
+   <div class="space-y-4 md:hidden">
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD001</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Nguyễn Văn An đã thanh toán</div>
+            <div class="text-gray-700 font-bold">35.000 ₫</div>
+            <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full" onclick="openPaymentModalDetail('HD001', 'Nguyễn Văn An', 'T5/2025', '35.000 ₫')">Xem chi tiết</button>
+            <button class="mt-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 w-full" onclick="openPaymentModalUndo('HD001', 'Nguyễn Văn An', 'T5/2025', '35.000 ₫')">Hoàn tác</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD002</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Trần Thị Bích</div>
+            <div class="text-gray-700 font-bold">35.000 ₫</div>
+            <button class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Xem chi tiết</button>
+        </div>
+        <div class="bg-white rounded-lg shadow p-4 flex flex-col gap-2">
+            <div class="flex justify-between items-center">
+                <span class="font-bold text-blue-700">HD003</span>
+                <span class="status-tag bg-red-100 text-red-800 text-xs">Quá hạn</span>
+            </div>
+            <div class="text-gray-800 font-semibold">Công ty TNHH ABC</div>
+            <div class="text-gray-500 text-sm">Kỳ thanh toán: T4/2025</div>
+            <div class="text-gray-500 text-sm">Hạn thanh toán: 15/04/2025</div>
+            <div class="text-gray-500 text-xs">
+                <div class="flex justify-between"><span>Thu gom:</span><span class="font-semibold text-green-600">200.000</span></div>
+                <div class="flex justify-between"><span>Vận chuyển:</span><span class="font-semibold text-blue-600">180.000</span></div>
+                <div class="flex justify-between"><span>Xử lý:</span><span class="font-semibold text-purple-600">120.000</span></div>
+            </div>
+            <div class="text-gray-700 font-bold">500.000 ₫</div>
+            <div class="flex gap-2 mt-2">
+                <button class="flex-1 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Xem chi tiết</button>
+                <button class="flex-1 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Nhắc nhở</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Kết thúc-->
+
+    <!-- Table view: chỉ hiện trên desktop (md trở lên) -->
+    <div class="md:block">
+        <div class="overflow-x-auto table-responsive">
+            <table class="w-full text-sm text-left text-gray-600 invoice-table">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                    <tr>
+                        <th scope="col" class="text-center px-4 py-3">STT</th>
+                        <th scope="col" class="text-center px-4 py-3">Hành động</th>
+                        <th scope="col" class="px-4 py-3">Mã HĐ</th>
+                        <th scope="col" class="px-4 py-3">Khách hàng</th>
+                        <th scope="col" class="px-4 py-3">Kỳ thanh toán</th>
+                        <th scope="col" class="px-4 py-3">Cấu trúc giá</th>
+                        <th scope="col" class="px-4 py-3">Hạn thanh toán</th>
+                        <th scope="col" class="px-4 py-3">Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white border-b hover:bg-gray-50 invoice-row" data-status="pending">
+                        <td class="text-center">1</td>
+                        <td class="text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                                <button class="text-cyan-600 hover:text-cyan-800 collect-payment-btn payment-credit-card-btn" title="Thanh toán" data-invoice-id="HD001" data-customer-name="Nguyễn Văn An" data-period="T5/2025" data-amount="35.000 ₫"><i class="fas fa-credit-card"></i></button>
+                            </div>
+                        </td>
+                        <td class="font-medium text-gray-900">HD001</td>
+                        <td>Nguyễn Văn An</td>
+                        <td>T5/2025</td>
+                        <td>
+                          <div class="text-xs">
+                            <div class="flex justify-between"><span>Thu gom:</span><span class="font-semibold text-green-600">15.000</span></div>
+                            <div class="flex justify-between"><span>Vận chuyển:</span><span class="font-semibold text-blue-600">12.000</span></div>
+                            <div class="flex justify-between"><span>Xử lý:</span><span class="font-semibold text-purple-600">8.000</span></div>
+                            <div class="text-gray-400 border-t pt-1 mt-1"><span>Tổng:</span><span class="font-bold text-blue-600">35.000</span></div>
+                          </div>
+                        </td>
+                        <td>15/05/2025</td>
+                        <td>
+                            <span class="status-tag bg-yellow-100 text-yellow-800">Chưa thanh toán</span>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b hover:bg-gray-50 invoice-row" data-status="paid">
+                        <td class="text-center">2</td>
+                        <td class="text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                            </div>
+                        </td>
+                        <td class="font-medium text-gray-900">HD002</td>
+                        <td>Trần Thị Bích</td>
+                        <td>T5/2025</td>
+                        <td>
+                          <div class="text-xs">
+                            <div class="flex justify-between"><span>Thu gom:</span><span class="font-semibold text-green-600">15.000</span></div>
+                            <div class="flex justify-between"><span>Vận chuyển:</span><span class="font-semibold text-blue-600">12.000</span></div>
+                            <div class="flex justify-between"><span>Xử lý:</span><span class="font-semibold text-purple-600">8.000</span></div>
+                            <div class="text-gray-400 border-t pt-1 mt-1"><span>Tổng:</span><span class="font-bold text-blue-600">35.000</span></div>
+                          </div>
+                        </td>
+                        <td>15/05/2025</td>
+                        <td>
+                            <span class="status-tag bg-green-100 text-green-800">Đã thanh toán</span>
+                        </td>
+                    </tr>
+                    <tr class="bg-white border-b hover:bg-gray-50 invoice-row" data-status="overdue">
+                        <td class="text-center">3</td>
+                        <td class="text-center">
+                            <div class="flex items-center justify-center gap-2">
+                                <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                                <button class="text-cyan-600 hover:text-cyan-800 collect-payment-btn payment-credit-card-btn" title="Thanh toán" data-invoice-id="HD003" data-customer-name="Công ty TNHH ABC" data-period="T4/2025" data-amount="500.000 ₫"><i class="fas fa-credit-card"></i></button>
+                                <button class="text-orange-500 hover:text-orange-700" title="Nhắc nhở"><i class="fas fa-bell"></i></button>
+                            </div>
+                        </td>
+                        <td class="font-medium text-gray-900">HD003</td>
+                        <td>Công ty TNHH ABC</td>
+                        <td>T4/2025</td>
+                        <td>
+                          <div class="text-xs">
+                            <div class="flex justify-between"><span>Thu gom:</span><span class="font-semibold text-green-600">200.000</span></div>
+                            <div class="flex justify-between"><span>Vận chuyển:</span><span class="font-semibold text-blue-600">180.000</span></div>
+                            <div class="flex justify-between"><span>Xử lý:</span><span class="font-semibold text-purple-600">120.000</span></div>
+                            <div class="text-gray-400 border-t pt-1 mt-1"><span>Tổng:</span><span class="font-bold text-blue-600">500.000</span></div>
+                          </div>
+                        </td>
+                        <td>15/04/2025</td>
+                        <td>
+                            <span class="status-tag bg-red-100 text-red-800">Quá hạn</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Pagination (centered) -->
+        <div class="flex justify-center items-center mt-4">
+            <nav class="inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                <a href="#" class="px-3 py-1 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-100" title="Trang trước">&laquo;</a>
+                <a href="#" class="px-3 py-1 border-t border-b border-gray-300 bg-blue-600 text-white font-semibold">1</a>
+                <a href="#" class="px-3 py-1 border border-gray-300 bg-white text-gray-700 hover:bg-gray-100">2</a>
+                <a href="#" class="px-3 py-1 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-100" title="Trang sau">&raquo;</a>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Dropdown functionality is handled by global function in layout.html --> 
+
+<!-- Payment Modal -->
+<div id="paymentModal" class="modal hidden flex items-center justify-center fixed inset-0 z-50 p-4">
+    <div class="modal-overlay absolute inset-0 bg-black opacity-40"></div>
+    <div class="modal-content relative bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-auto p-0 animate-fade-in">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 rounded-t-2xl bg-gradient-to-r from-blue-50 to-white">
+            <div class="flex items-center gap-2">
+                <i class="fas fa-file-invoice-dollar text-blue-600 text-2xl"></i>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-800">Thanh toán hóa đơn</h3>
+            </div>
+            <button class="modal-close text-gray-400 hover:text-red-500 text-2xl" onclick="closePaymentModal()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body px-6 py-6">
+            <div class="mb-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-2">
+                    <div class="flex justify-between mb-2"><span class="text-gray-500 font-medium">Mã hóa đơn:</span><span class="font-semibold text-blue-700" id="modalInvoiceId">HD001</span></div>
+                    <div class="flex justify-between mb-2"><span class="text-gray-500 font-medium">Khách hàng:</span><span class="font-semibold text-gray-800" id="modalCustomerName">Nguyễn Văn An</span></div>
+                    <div class="flex justify-between mb-2"><span class="text-gray-500 font-medium">Kỳ thanh toán:</span><span class="text-gray-700" id="modalPeriod">T5/2025</span></div>
+                    <div class="flex justify-between mb-2"><span class="text-gray-500 font-medium">Số tiền:</span><span class="font-bold text-lg text-blue-600" id="modalAmount">35.000 ₫</span></div>
+                </div>
+            </div>
+            <!-- Các phương thức thanh toán sẽ giữ nguyên layout cũ, chỉ bọc lại cho đồng bộ -->
+            <div id="momoSection" class="mb-4">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="text-center mb-3">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIxODAiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIGZpbGw9IiNGRkZGRkYiLz4KPHN2ZyB4PSI0MCIgeT0iNDAiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZT0iIzAwMDAwMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxyZWN0IHg9IjE1IiB5PSIxNSIgd2lkdGg9IjkwIiBoZWlnaHQ9IjkwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjgwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjI1IiB5PSIyNSIgd2lkdGg9IjcwIiBoZWlnaHQ9IjcwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjMwIiB5PSIzMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjM1IiB5PSIzNSIgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjQ1IiB5PSI0NSIgd2lkdGg9IjMwIiBoZWlnaHQ9IjMwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjUwIiB5PSI1MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjRkZGRkZGIi8+CjxyZWN0IHg9IjU1IiB5PSI1NSIgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjRkZGRkZGIi8+Cjwvc3ZnPgo8L3N2Zz4K" alt="QR Code" class="mx-auto w-32 h-32 border border-gray-300 rounded-lg">
+                    </div>
+                    <div class="text-center text-sm text-gray-600">
+                        <p class="font-semibold mb-1">Quét mã QR để thanh toán</p>
+                        <p>Số tiền: <span class="font-bold text-green-600" id="momoAmount">35.000 ₫</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="bankSection" class="mb-4 hidden">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="text-sm text-gray-700">
+                        <p class="font-semibold mb-2">Thông tin chuyển khoản:</p>
+                        <p class="mb-1"><strong>Ngân hàng:</strong> Vietcombank</p>
+                        <p class="mb-1"><strong>Số tài khoản:</strong> 1234567890</p>
+                        <p class="mb-1"><strong>Chủ tài khoản:</strong> CÔNG TY TNHH GRAC</p>
+                        <p class="mb-1"><strong>Nội dung:</strong> <span id="bankContent">Thanh toan HD001</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="cashSection" class="mb-4 hidden">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="text-sm text-gray-700">
+                        <p class="font-semibold mb-2">Thanh toán tiền mặt</p>
+                        <p>Vui lòng liên hệ nhân viên thu ngân để thực hiện thanh toán.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer flex justify-end px-6 py-4 border-t border-gray-100 rounded-b-2xl bg-gray-50">
+            <button class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold text-base hover:bg-blue-700 transition" onclick="closePaymentModal()">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Payment modal functions
+function openPaymentModal(invoiceId, customerName, period, amount) {
+    // Luôn gọi popup nhiều kỳ (id 'payment-modal') nếu có
+    if (typeof window.openPaymentModal === 'function') {
+        window.openPaymentModal({ code: invoiceId, name: customerName, period, totalDebt: amount });
+        return;
+    }
+    // Nếu không có, có thể hiện thông báo hoặc không làm gì
+    alert('Chức năng thanh toán nhiều kỳ chưa sẵn sàng!');
+}
+
+function openPaymentModalUndo(invoiceId, customerName, period, amount) {
+    // Luôn gọi popup nhiều kỳ (id 'payment-modal') nếu có
+    if (typeof window.openPaymentModalUndo === 'function') {
+        window.openPaymentModalUndo({ code: invoiceId, name: customerName, period, totalDebt: amount });
+        return;
+    }
+    // Nếu không có, có thể hiện thông báo hoặc không làm gì
+    alert('Chức năng thanh toán nhiều kỳ chưa sẵn sàng!');
+}
+
+function openPaymentModalDetail(invoiceId, customerName, period, amount) {
+    // Luôn gọi popup nhiều kỳ (id 'payment-modal') nếu có
+    if (typeof window.openPaymentModalDetail === 'function') {
+        window.openPaymentModalDetail({ code: invoiceId, name: customerName, period, totalDebt: amount });
+        return;
+    }
+    // Nếu không có, có thể hiện thông báo hoặc không làm gì
+    alert('Chức năng thanh toán nhiều kỳ chưa sẵn sàng!');
+}
+
+
+function closePaymentModalDetail() {
+    document.getElementById('paymentModalDetail').classList.add('hidden');
+}
+
+function closePaymentModalUndo() {
+    document.getElementById('paymentModal').classList.add('hidden');
+}
+
+function closePaymentModal() {
+    document.getElementById('paymentModalUndo').classList.add('hidden');
+}
+
+
+function showPaymentSection(method) {
+    // Hide all sections
+    document.getElementById('momoSection').classList.remove('hidden');
+    document.getElementById('bankSection').classList.add('hidden');
+    document.getElementById('cashSection').classList.add('hidden');
+    
+    // Show selected section
+    if (method === 'momo') {
+        document.getElementById('momoSection').classList.remove('hidden');
+    } else if (method === 'bank') {
+        document.getElementById('bankSection').classList.remove('hidden');
+    } else if (method === 'cash') {
+        document.getElementById('cashSection').classList.remove('hidden');
+    }
+}
+
+function processPayment() {
+    const method = document.getElementById('paymentMethod').value;
+    const invoiceId = document.getElementById('modalInvoiceId').textContent;
+    
+    // Simulate payment processing
+    alert(`Đang xử lý thanh toán cho hóa đơn ${invoiceId} qua ${method}...`);
+    
+    // Close modal
+    closePaymentModal();
+    
+    // Update status in table (you can implement this based on your needs)
+    // For now, just show a success message
+    setTimeout(() => {
+        alert('Thanh toán thành công!');
+    }, 1000);
+}
+
+// Add event listener for payment method change
+document.addEventListener('DOMContentLoaded', function() {
+    const paymentMethod = document.getElementById('paymentMethod');
+    if (paymentMethod) {
+        paymentMethod.addEventListener('change', function() {
+            showPaymentSection(this.value);
+        });
+    }
+    
+    // Gán sự kiện cho nút Thanh toán ở cột Hành động (icon credit-card)
+    document.querySelectorAll('button[title="Thanh toán"] i.fas.fa-credit-card').forEach(function(icon) {
+        const btn = icon.closest('button');
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const row = btn.closest('tr');
+            const code = row?.querySelector('td:nth-child(3)')?.textContent.trim() || '';
+            const name = row?.querySelector('td:nth-child(4)')?.textContent.trim() || '';
+            const period = row?.querySelector('td:nth-child(5)')?.textContent.trim() || '';
+            const amount = row?.querySelector('td:nth-child(6)')?.textContent.trim() || '';
+            const customerData = { code, name, period, totalDebt: amount };
+            if (typeof window.openPaymentModal === 'function') {
+                window.openPaymentModal(customerData);
+            } else {
+                alert('Chức năng thanh toán chưa sẵn sàng!');
+            }
+        });
+    });
+});
+</script> 

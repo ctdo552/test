@@ -1,0 +1,133 @@
+<div class="bg-white p-6 rounded-lg shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-gray-800">Theo dõi Thanh toán</h2>
+        <div class="flex space-x-2">
+            <button class="bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-50 flex items-center">
+                <i class="fas fa-download mr-2"></i> Export
+            </button>
+        </div>
+    </div>
+    
+    <div class="p-4 bg-gray-50 rounded-lg border border-gray-200 mb-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <input type="text" placeholder="Tìm kiếm mã hóa đơn, khách hàng..." class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <select class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Tất cả trạng thái</option>
+                <option>Đã thanh toán</option>
+                <option>Chưa thanh toán</option>
+                <option>Quá hạn</option>
+            </select>
+            <input type="month" class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button class="btn-search">Tìm kiếm</button>
+        </div>
+    </div>
+    
+    <div class="overflow-x-auto table-responsive">
+        <table class="w-full text-sm text-left text-gray-600">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr>
+                    <th scope="col" class="px-4 py-3 text-center">STT</th>
+                    <th scope="col" class="px-4 py-3 text-center">Hành động</th>
+                    <th scope="col" class="px-6 py-3">Mã HĐ</th>
+                    <th scope="col" class="px-6 py-3">Khách hàng</th>
+                    <th scope="col" class="px-6 py-3">Kỳ thanh toán</th>
+                    <th scope="col" class="px-6 py-3">Số tiền</th>
+                    <th scope="col" class="px-6 py-3">Ngày thanh toán</th>
+                    <th scope="col" class="px-6 py-3">Phương thức</th>
+                    <th scope="col" class="px-6 py-3">Trạng thái</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="text-center">1</td>
+                    <td class="text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </td>
+                    <td class="font-medium text-gray-900">HD001</td>
+                    <td>Nguyễn Văn An</td>
+                    <td>T5/2025</td>
+                    <td class="font-semibold">35.000 ₫</td>
+                    <td>10/05/2025</td>
+                    <td>Tiền mặt</td>
+                    <td>
+                        <span class="status-tag bg-green-100 text-green-800">Đã thanh toán</span>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="text-center">2</td>
+                    <td class="text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                            <button class="text-cyan-600 hover:text-cyan-800" title="Thanh toán"><i class="fas fa-credit-card"></i></button>
+                        </div>
+                    </td>
+                    <td class="font-medium text-gray-900">HD002</td>
+                    <td>Trần Thị Bích</td>
+                    <td>T5/2025</td>
+                    <td class="font-semibold">35.000 ₫</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>
+                        <span class="status-tag bg-yellow-100 text-yellow-800">Chưa thanh toán</span>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b hover:bg-gray-50">
+                    <td class="text-center">3</td>
+                    <td class="text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button class="text-blue-600 hover:text-blue-800" title="Xem chi tiết"><i class="fas fa-eye"></i></button>
+                            <button class="text-cyan-600 hover:text-cyan-800" title="Thanh toán"><i class="fas fa-credit-card"></i></button>
+                            <button class="text-yellow-500 hover:text-yellow-700" title="Nhắc nhở"><i class="fas fa-bell"></i></button>
+                        </div>
+                    </td>
+                    <td class="font-medium text-gray-900">HD003</td>
+                    <td>Nguyễn Văn C</td>
+                    <td>T4/2025</td>
+                    <td class="font-semibold">50.000 ₫</td>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>
+                        <span class="status-tag bg-red-100 text-red-800">Quá hạn</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> 
+<script>
+function getRowData(row) {
+  return {
+    code: row.querySelector('td:nth-child(3)')?.textContent.trim() || '',
+    name: row.querySelector('td:nth-child(4)')?.textContent.trim() || '',
+    period: row.querySelector('td:nth-child(5)')?.textContent.trim() || '',
+    totalDebt: row.querySelector('td:nth-child(6)')?.textContent.trim() || ''
+  };
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('table tr button[title]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const row = btn.closest('tr');
+      const data = getRowData(row);
+      if (btn.title === 'Xem chi tiết') {
+        alert('Xem chi tiết hóa đơn: ' + data.code + ' - ' + data.name);
+      } else if (btn.title === 'Thanh toán') {
+        if (typeof window.openPaymentModal === 'function') {
+          window.openPaymentModal(data);
+        } else {
+          alert('Chức năng thanh toán chưa sẵn sàng!');
+        }
+      } else if (btn.title === 'Nhắc nhở') {
+        alert('Đã gửi nhắc nhở đến khách hàng: ' + data.name + ' (Kỳ: ' + data.period + ')');
+      }
+    });
+  });
+});
+</script> 
+<style>
+table tbody tr {
+  height: 46.5px;
+}
+</style> 

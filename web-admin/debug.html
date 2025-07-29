@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug WebAdmin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-2xl font-bold mb-4">Debug WebAdmin</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h2 class="text-lg font-semibold mb-2">Test Direct File Access</h2>
+                <div class="space-y-2">
+                    <a href="pages/customers-content.html" target="_blank" class="block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center">
+                        Open customers-content.html
+                    </a>
+                    <a href="pages/dashboard-grac-admin.html" target="_blank" class="block bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 text-center">
+                        Open dashboard-grac-admin.html
+                    </a>
+                    <a href="pages/contracts-content.html" target="_blank" class="block bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700 text-center">
+                        Open contracts-content.html
+                    </a>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <h2 class="text-lg font-semibold mb-2">Test Fetch API</h2>
+                <div class="space-y-2">
+                    <button onclick="testFetch('customers-content')" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        Fetch customers-content
+                    </button>
+                    <button onclick="testFetch('dashboard-grac-admin')" class="w-full bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                        Fetch dashboard-grac-admin
+                    </button>
+                    <button onclick="testFetch('contracts-content')" class="w-full bg-purple-600 text-white px-4 py-2 rounded-md hover:bg-purple-700">
+                        Fetch contracts-content
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-4 rounded-lg shadow-sm mb-4">
+            <h2 class="text-lg font-semibold mb-2">Console Output</h2>
+            <div id="console-output" class="bg-gray-900 text-green-400 p-4 rounded-md font-mono text-sm h-32 overflow-y-auto">
+                <div>Console output will appear here...</div>
+            </div>
+        </div>
+        
+        <div id="content-container" class="bg-white p-4 rounded-lg shadow-sm min-h-64">
+            <p class="text-gray-500">Content will be loaded here...</p>
+        </div>
+    </div>
+
+    <script>
+        // Override console.log to show in UI
+        const originalLog = console.log;
+        const originalError = console.error;
+        const consoleOutput = document.getElementById('console-output');
+        
+        function addToConsole(message, type = 'log') {
+            const div = document.createElement('div');
+            div.className = type === 'error' ? 'text-red-400' : 'text-green-400';
+            div.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            consoleOutput.appendChild(div);
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+        }
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            addToConsole(args.join(' '));
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            addToConsole(args.join(' '), 'error');
+        };
+        
+        function testFetch(contentId) {
+            const contentContainer = document.getElementById('content-container');
+            
+            console.log('Testing fetch for:', contentId);
+            
+            // Show loading state
+            contentContainer.innerHTML = '<div class="flex items-center justify-center h-32"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>';
+            
+            // Test fetch
+            fetch(`pages/${contentId}.html`)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    console.log('Content loaded successfully, length:', html.length);
+                    contentContainer.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                    contentContainer.innerHTML = `
+                        <div class="text-center">
+                            <i class="fas fa-exclamation-triangle text-yellow-500 text-4xl mb-4"></i>
+                            <h2 class="text-xl font-semibold text-gray-700 mb-2">Lỗi tải trang</h2>
+                            <p class="text-gray-500 mb-4">Không thể tải trang: ${contentId}</p>
+                            <p class="text-sm text-gray-400">Lỗi: ${error.message}</p>
+                        </div>
+                    `;
+                });
+        }
+        
+        // Test on page load
+        console.log('Debug page loaded');
+        console.log('Current URL:', window.location.href);
+    </script>
+</body>
+</html> 
